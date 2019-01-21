@@ -19,7 +19,14 @@ service: update-addresses
 
 provider:
   name: azure
-  location: West US
+  location: North Europe
+  environment:
+    GOOGLE_KEY: ${env:GOOGLE_KEY, '123'}
+    SQL_USER: ${env:SQL_USER, 'test'}
+    SQL_PASSWORD: ${env:SQL_PASSWORD, '123'}
+    SQL_SERVER: ${env:SQL_SERVER, 'localhost:1433'}
+    SQL_DB: ${env:SQL_DB, 'testdb1'}
+    SQL_ENCRYPT: true
 
 plugins:
   - serverless-azure-functions
