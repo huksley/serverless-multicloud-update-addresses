@@ -2,7 +2,7 @@
 
 const sql = require("mssql");
 const googleMapsClient = require('@google/maps').createClient({
-    key: process.env.GOOGLE_KEY | "123",
+    key: process.env.GOOGLE_KEY || "123",
     Promise: Promise
 });
 
@@ -12,10 +12,10 @@ async function updateAddresses(context) {
   context.log('Starting updateAddresses');
   
     var config = {
-        user: process.env.SQL_USER | "user",
-        password: process.env.SQL_PASSWORD | "123",
-        server: process.env.SQL_SERVER | "localhost:1433", 
-        database: process.env.SQL_DB | 'testdb1',
+        user: process.env.SQL_USER || "user",
+        password: process.env.SQL_PASSWORD || "123",
+        server: process.env.SQL_SERVER || "localhost:1433", 
+        database: process.env.SQL_DB || 'testdb1',
         options: {
             encrypt: process.env.SQL_ENCRYPT !== undefined ? process.env.SQL_ENCRYPT : true
         }
@@ -25,8 +25,17 @@ async function updateAddresses(context) {
     sql.connect(config, function (err) {
         if (err) context.log(err);
         const request = new sql.Request();
-        request.query('select * from Saleslt.Address where Lat = 1 or Lng = 1', async function (err, result) {
-            if (err) context.log(err)
+        request.query('select * from Saleslt.Address where Lat = 1 or Lng = 1 or Lat is null Lng is null', async function (err, result) {
+            if (err) {
+                context.log(err)
+                context.res = {
+                    status: 500,
+                    body: "Failed because " + err
+                }
+                sql.close();
+                context.done();
+                return
+            }
 
             let recordset = result.recordsets[0]
             context.log("Total records", recordset.length);
@@ -45,14 +54,14 @@ async function updateAddresses(context) {
                         request.query("update Saleslt.Address set Lat = " + lat + 
                             ", Lng = " + lng + " where AddressID = " + r.AddressID).then(_ => {    
                             n ++
-                        })
+                        }).catch(e => context.log(e))
                     } else {
                         console.warn("Bad response", geores)
                     }
-                }).asPromise().catch(err => context.log(err))
+                }).asPromise().catch(err => context.log("Failed to geocode", err))
             })
 
-            Promise.all(promises).then(function () {
+            Promise.all(promises).then(_ => {
                 context.res = {
                     // status: 200, /* Defaults to 200 */
                     body: "Updated " + n + " addresses"
@@ -60,7 +69,7 @@ async function updateAddresses(context) {
 
                 sql.close();
                 context.done();
-            })
+            }).catch(e => context.log("Failed to run all updates, got error", e))
         });
     });
 };
@@ -72,7 +81,7 @@ if (process.env.RUN_CONSOLE) {
     const ctx = {
         log: console.log,
         done: function () {
-            console.log("Done, result: ", ctx.res.body)
+            console.log("Done, result: ", ctx.status || 200, ctx.res.body)
         }
     }
     updateAddresses(ctx)
