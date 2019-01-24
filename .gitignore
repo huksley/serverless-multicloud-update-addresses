@@ -6,3 +6,5 @@ run-with-env
 
 # Serverless directories
 .serverless
+.build
+handler.js

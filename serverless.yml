@@ -30,6 +30,7 @@ provider:
 
 plugins:
   - serverless-azure-functions
+  - serverless-plugin-typescript
 
 # you can add packaging information here
 #package:

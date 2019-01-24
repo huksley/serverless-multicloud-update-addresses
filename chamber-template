@@ -1,0 +1,14 @@
+#!/bin/bash
+# 
+# To run this project, copy this file, fill these values and uncomment chamber lines
+
+# SQL server on Azure with sample SalesLT DB configured 
+
+# chamber write azure/test1 SQL_USER dsadsd
+# chamber write azure/test1 SQL_PASSWORD dasdsa
+# chamber write azure/test1 SQL_SERVER dasdsdsa
+
+# Google key to access Geocoding API
+
+# chamber write azure/test1 GOOGLE_KEY dsadsa
+

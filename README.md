@@ -1,5 +1,17 @@
 # Azure FaaS + container + SQL db
 
+## Running
+
+npm install
+npm start
+
+## Configure local
+
+1. Get SQL server + sample DB
+2. Get Google key
+3. Save to AWS SSM Parameter store secrets using chamber-template
+4. Run or deploy (npm run deploy)
+
 ## container with Metabase
 
 ```bash

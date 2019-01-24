@@ -2,18 +2,27 @@
   "name": "azure-nodejs",
   "version": "1.0.0",
   "description": "Azure Functions sample for the Serverless framework",
-  "main": "handler.js",
+  "main": "handler.jsr",
   "keywords": [
     "azure",
     "serverless"
   ],
+  "scripts": {
+    "deploy": "chamber exec azure/test1 -- npx serverless deploy",
+    "start": "npx typescript --lib es2015,dom handler && RUN_CONSOLE=1 chamber exec azure/test1 -- node handler",
+    "chamber": "chamber list azure/test1"
+  },
   "devDependencies": {
-    "serverless-azure-functions": "*"
+    "@types/googlemaps": "^3.30.16",
+    "@types/node": "^10.12.18",
+    "serverless": "^1.36.1",
+    "serverless-azure-functions": "*",
+    "serverless-plugin-typescript": "^1.1.5",
+    "source-map-support": "^0.5.10",
+    "typescript": "^3.2.4"
   },
   "dependencies": {
     "@google/maps": "^0.5.5",
-    "google-geocoder": "^0.2.1",
-    "mssql": "^4.3.0",
-    "serverless": "^1.36.1"
+    "mssql": "^4.3.0"
   }
 }
