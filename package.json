@@ -17,7 +17,6 @@
     "@types/bluebird": "^3.5.25",
     "@types/googlemaps": "^3.30.16",
     "@types/node": "^10.12.18",
-    "bluebird": "^3.5.3",
     "serverless": "^1.36.1",
     "serverless-azure-functions": "*",
     "serverless-plugin-include-dependencies": "^3.2.1",
@@ -26,6 +25,7 @@
   },
   "dependencies": {
     "@google/maps": "^0.5.5",
+    "bluebird": "^3.5.3",
     "mssql": "^4.3.0"
   }
 }
