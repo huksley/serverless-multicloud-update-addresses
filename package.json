@@ -18,6 +18,7 @@
     "@types/node": "^10.12.18",
     "serverless": "^1.36.1",
     "serverless-azure-functions": "*",
+    "serverless-plugin-include-dependencies": "^3.2.1",
     "source-map-support": "^0.5.10",
     "typescript": "^3.2.4"
   },

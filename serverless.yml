@@ -21,6 +21,7 @@ package:
 
 plugins:
   - serverless-azure-functions
+  - serverless-plugin-include-dependencies
 
 functions:
   updateAddresses:
