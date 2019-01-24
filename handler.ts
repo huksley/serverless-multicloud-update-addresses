@@ -6,12 +6,15 @@ import * as googleMapSdk from '@google/maps'
 import { Context } from 'serverless-azure-functions'
 import { ServerResponse } from 'http';
 import { Http2ServerResponse } from 'http2';
+import { resolve } from 'url';
+
+const BbPromise = require("bluebird")
 
 console.log("SDK", googleMapSdk)
 
 const googleMapsClient = googleMapSdk.createClient({
     key: process.env.GOOGLE_KEY || "123",
-    Promise: Promise
+    Promise: BbPromise
 })
 
 /* eslint-disable no-param-reassign */
@@ -28,8 +31,10 @@ async function dontcare(f: Function, context: any = null) {
     }
 }
 
+declare var BUILD_TIME: string
+
 async function updateAddresses(context: Context) {
-  context.log('Starting updateAddresses')
+  context.log('Starting updateAddresses, build time: ', (typeof BUILD_TIME !== 'undefined' ? BUILD_TIME : "dev"))
   
     var config = {
         user: process.env.SQL_USER || "user",
@@ -40,9 +45,10 @@ async function updateAddresses(context: Context) {
             encrypt: process.env.SQL_ENCRYPT !== undefined ? process.env.SQL_ENCRYPT : true
         }
     }
-
-    context.log("Using config", Object.assign({}, config, { "password": "***" }), "to login to MS-SQL")
+    
+    context.log("Using config", Object.assign({}, config, { "password": "***" }), "to login to MS-SQL", sql)
     sql.connect(config).then(_ => {
+        context.log("After connect")
         const request = new sql.Request()
         request.query('select * from Saleslt.Address where Lat = 1 or Lng = 1 or Lat is null or Lng is null', async function (err, result) {
             if (err) {
@@ -60,25 +66,28 @@ async function updateAddresses(context: Context) {
             let recordset = result.recordsets[0]
             context.log("Total records", recordset.length)
             let n = 0
-            let promises = recordset.map(r => {
+            let promises = recordset.map(async r => {
                 let addr = r.AddressLine1 + ", " + r.City + ", " + r.StateProvince + " " + r.PostalCode + " " + r.CountryRegion
                 context.log("Geocoding", addr)
                 return googleMapsClient.geocode({
                     address: addr
-                }, function (err, geores) {
-                    if (geores && geores.json.results && geores.json.results.length > 0) {
-                        let res = geores.json.results[0]
-                        let lat = res.geometry.location.lat
-                        let lng = res.geometry.location.lng
-                        context.log("Got address coords", lat, lng)
-                        request.query("update Saleslt.Address set Lat = " + lat + 
-                            ", Lng = " + lng + " where AddressID = " + r.AddressID).then(_ => {    
-                            n ++
-                        }).catch(e => context.log(e))
-                    } else {
-                        context.log("Incomplete response", geores)
-                    }
-                }).asPromise().catch(err => context.log("Failed to geocode", err))
+                }).asPromise().
+                    then(geores => { 
+                        console.log(geores)
+                        if (geores && geores.json.results && geores.json.results.length > 0) {
+                            let res = geores.json.results[0]
+                            let lat = res.geometry.location.lat
+                            let lng = res.geometry.location.lng
+                            context.log("Got address coords", lat, lng)
+                            request.query("update Saleslt.Address set Lat = " + lat + 
+                                ", Lng = " + lng + " where AddressID = " + r.AddressID).then(_ => {    
+                                n ++
+                            }).catch(e => context.log(e))
+                        } else {
+                            context.log("Incomplete response", geores)
+                        }
+                    }).
+                    catch(err => context.log("Failed to geocode", err))
             })
 
             Promise.all(promises).then(_ => {
@@ -88,10 +97,12 @@ async function updateAddresses(context: Context) {
                 }
 
                 dontcare(_ => sql.close())
+                context.log("Finished updating addresses")
                 context.done()
             }).catch(e => context.log("Failed to run all of updates, got error", e))
         })
     }).catch(err => {
+        context.log("After connect exception")
         context.log(err)
         context.res = {
             status: 500,
@@ -102,6 +113,23 @@ async function updateAddresses(context: Context) {
         context.done()
         return
     })
+    var p = <any> process
+    context.log("After connect body", p._getActiveRequests().length, p._getActiveHandles().length)
+    /*
+    var haveSome = true
+    while (haveSome) {
+        if (p._getActiveRequests().length > 0 ||
+            p._getActiveHandles().length) {
+                haveSome = true
+            } else {
+                haveSome = false
+            }
+        process.nextTick(_ => {
+
+        })
+        context.log("Still draining event loop", p._getActiveRequests().length, p._getActiveHandles().length)
+    }
+    */
 }
 
 module.exports.updateAddresses = updateAddresses

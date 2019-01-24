@@ -1,4 +1,4 @@
-service: update-addresses
+service: ${env:SERVICE_NAME, 'update-addresses'}
 
 provider:
   name: azure

@@ -1,6 +1,6 @@
 {
   "name": "azure-nodejs",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Azure Functions sample for the Serverless framework",
   "main": "handler.js",
   "license": "MIT",
@@ -9,13 +9,15 @@
     "serverless"
   ],
   "scripts": {
-    "deploy": "npx typescript --lib es2015,dom handler && chamber exec azure/test1 -- npx serverless deploy",
+    "deploy": "npx typescript --lib es2015,dom handler && date +'var BUILD_TIME = \"%c\"' | tee -a handler.js && chamber exec azure/test1 -- npx serverless deploy",
     "start": "npx typescript --lib es2015,dom handler && RUN_CONSOLE=1 chamber exec azure/test1 -- node handler",
     "chamber": "chamber list azure/test1"
   },
   "devDependencies": {
+    "@types/bluebird": "^3.5.25",
     "@types/googlemaps": "^3.30.16",
     "@types/node": "^10.12.18",
+    "bluebird": "^3.5.3",
     "serverless": "^1.36.1",
     "serverless-azure-functions": "*",
     "serverless-plugin-include-dependencies": "^3.2.1",

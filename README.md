@@ -12,6 +12,12 @@ npm start
 3. Save to AWS SSM Parameter store secrets using chamber-template
 4. Run or deploy (npm run deploy)
 
+## Links
+
+https://docs.microsoft.com/en-us/azure/azure-functions/set-runtime-version
+https://docs.microsoft.com/en-us/azure/azure-functions/functions-reference-node
+https://docs.microsoft.com/en-us/azure/azure-functions/functions-create-first-azure-function-azure-cli-linux
+
 ## container with Metabase
 
 ```bash
@@ -71,3 +77,14 @@ From previous event:
     at findNodeScript.then.existing (/home/rgai/usr/node-v8.11.1-linux-x64/lib/node_modules/npm/node_modules/libnpx/index.js:268:14)
     at <anonymous>
  ```
+
+### After deploy
+
+```
+Error:
+
+Function (updateAddresses) Error: Failed to start language worker process for: node. node exited with code -1 . Failed to start language worker process for: node. node exited with code -1 . Failed to start language worker process for: node. node exited with code -1 .
+Session Id: 8509d91e09ca492e8d2a8295115003cf
+
+Timestamp: 2019-01-24T14:42:36.026Z
+```
