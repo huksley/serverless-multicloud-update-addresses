@@ -18,6 +18,7 @@ https://docs.microsoft.com/en-us/azure/azure-functions/set-runtime-version
 https://docs.microsoft.com/en-us/azure/azure-functions/functions-reference-node
 https://docs.microsoft.com/en-us/azure/azure-functions/functions-create-first-azure-function-azure-cli-linux
 https://update-addresses3.scm.azurewebsites.net/
+https://github.com/Azure/azure-functions-core-tools
 
 ## container with Metabase
 

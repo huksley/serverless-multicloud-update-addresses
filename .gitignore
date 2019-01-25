@@ -1,12 +1,29 @@
-# package directories
-node_modules
-jspm_packages
-deploy-with-env
-run-with-env
+bin
+obj
+csx
+.vs
+edge
+Publish
 
-# Serverless directories
-.serverless
-.build
-handler.js
+*.user
+*.suo
+*.cscfg
+*.Cache
+project.lock.json
+
+/packages
+/TestResults
+
+/tools/NuGet.exe
+/App_Data
+/secrets
+/data
+.secrets
+appsettings.json
+local.settings.json
+
+node_modules
 src/*.js
 src/*.js.*
+.serverless
+#.vscode
