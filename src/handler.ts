@@ -10,7 +10,7 @@ import { resolve } from "url"
 const BbPromise = require("bluebird")
 
 const googleMapsClient = googleMapSdk.createClient({
-  key: process.env.GOOGLE_KEY || "AIzaSyDfOFca6mxzdPQfv0ThrEw-FrV1qdbgPQk",
+  key: process.env.GOOGLE_KEY || "123",
   Promise: BbPromise // Trying to use BbPromise, maybe it will not use native promises and execute code on main thread?
 })
 
@@ -37,9 +37,9 @@ async function updateAddresses(context: Context) {
   )
 
   var config = {
-    user: process.env.SQL_USER || "dsjds82kdsja",
-    password: process.env.SQL_PASSWORD || "Tuung6re3aiS",
-    server: process.env.SQL_SERVER || "testsrv1dsds121.database.windows.net",
+    user: process.env.SQL_USER || "123",
+    password: process.env.SQL_PASSWORD || "123",
+    server: process.env.SQL_SERVER || "localhost",
     database: process.env.SQL_DB || "testdb1",
     options: {
       encrypt:
