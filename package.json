@@ -9,8 +9,8 @@
     "serverless"
   ],
   "scripts": {
-    "deploy": "npx typescript --lib es2015,dom handler && date +'var BUILD_TIME = \"%c\"' | tee -a handler.js && chamber exec azure/test1 -- npx serverless deploy",
-    "start": "npx typescript --lib es2015,dom handler && RUN_CONSOLE=1 chamber exec azure/test1 -- node handler",
+    "deploy": "npx typescript --lib es2017,dom handler && date +'var BUILD_TIME = \"%c\"' | tee -a handler.js && chamber exec azure/test1 -- npx serverless deploy",
+    "start": "npx typescript --lib es2017,dom handler && RUN_CONSOLE=1 chamber exec azure/test1 -- node handler",
     "chamber": "chamber list azure/test1"
   },
   "devDependencies": {
