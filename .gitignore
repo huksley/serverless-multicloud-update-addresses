@@ -8,3 +8,5 @@ run-with-env
 .serverless
 .build
 handler.js
+src/*.js
+src/*.js.*

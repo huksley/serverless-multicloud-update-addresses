@@ -1,6 +1,5 @@
 "use strict"
 
-import "source-map-support/register"
 import * as sql from "mssql"
 import * as googleMapSdk from "@google/maps"
 import { Context } from "serverless-azure-functions"
