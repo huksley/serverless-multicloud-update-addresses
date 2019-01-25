@@ -10,7 +10,7 @@ import { resolve } from "url"
 const BbPromise = require("bluebird")
 
 const googleMapsClient = googleMapSdk.createClient({
-  key: process.env.GOOGLE_KEY || "123",
+  key: process.env.GOOGLE_KEY || "AIzaSyDfOFca6mxzdPQfv0ThrEw-FrV1qdbgPQk",
   Promise: BbPromise // Trying to use BbPromise, maybe it will not use native promises and execute code on main thread?
 })
 
@@ -37,9 +37,9 @@ async function updateAddresses(context: Context) {
   )
 
   var config = {
-    user: process.env.SQL_USER || "user",
-    password: process.env.SQL_PASSWORD || "123",
-    server: process.env.SQL_SERVER || "localhost:1433",
+    user: process.env.SQL_USER || "dsjds82kdsja",
+    password: process.env.SQL_PASSWORD || "Tuung6re3aiS",
+    server: process.env.SQL_SERVER || "testsrv1dsds121.database.windows.net",
     database: process.env.SQL_DB || "testdb1",
     options: {
       encrypt:
@@ -72,8 +72,7 @@ async function updateAddresses(context: Context) {
             }
 
             ignoreExceptions(_ => sql.close())
-            context.done()
-            return
+            return context.done()
           }
 
           let recordset = result.recordsets[0]
@@ -135,11 +134,16 @@ async function updateAddresses(context: Context) {
 
               ignoreExceptions(_ => sql.close())
               context.log("Finished updating addresses")
-              context.done()
+              return context.res
             })
-            .catch(e =>
+            .catch(e => {
               context.log("Failed to run all of updates, got error", e)
-            )
+              context.res = {
+                status: 500,
+                body: "Failed to run all updates: " + e
+              }
+              return context.res
+            })
         }
       )
     })
@@ -152,8 +156,7 @@ async function updateAddresses(context: Context) {
       }
 
       ignoreExceptions(_ => sql.close())
-      context.done()
-      return
+      return context.res
     })
 
   // Dump any pending NodeJs eventloop tasks
