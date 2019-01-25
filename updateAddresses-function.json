@@ -14,5 +14,5 @@
         }
     ],
     "entryPoint": "updateAddresses",
-    "scriptFile": "handler.js"
+    "scriptFile": "src/handler.js"
 }

@@ -15,7 +15,8 @@ package:
   exclude:
     - 'README.md'
     - 'tsconfig.json'
-    - 'handler.ts'
+    - 'src/*.ts'
+    - 'src/*.js.bak'
     - 'chamber-template'
     - '.gitignore'
 
@@ -25,7 +26,7 @@ plugins:
 
 functions:
   updateAddresses:
-    handler: handler.updateAddresses
+    handler: src/handler.updateAddresses
     events:
       - http: true
         x-azure-settings:
