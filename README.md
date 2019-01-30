@@ -12,6 +12,18 @@ npm start
 3. Save to AWS SSM Parameter store secrets using chamber-template
 4. Run or deploy (npm run deploy)
 
+## Running typescript azure function locally
+
+```bash
+languageWorkers__node__arguments="--inspect=5858" func host start"
+```
+
+```bash
+tsc --watch
+```
+
+And add to debugger launch restart: true
+
 ## Links
 
 https://docs.microsoft.com/en-us/azure/azure-functions/set-runtime-version

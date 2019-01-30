@@ -5,7 +5,8 @@
             "type": "httpTrigger",
             "direction": "in",
             "name": "req",
-            "authLevel": "anonymous"
+            "authLevel": "anonymous",
+            "route": "updateAddresses"
         },
         {
             "type": "http",
@@ -14,5 +15,5 @@
         }
     ],
     "entryPoint": "updateAddresses",
-    "scriptFile": "./handler.js"
+    "scriptFile": "updateAddresses/handler.js"
 }

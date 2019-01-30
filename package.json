@@ -26,7 +26,6 @@
   },
   "dependencies": {
     "@google/maps": "^0.5.5",
-    "bluebird": "^3.5.3",
     "mssql": "^4.3.0"
   }
 }

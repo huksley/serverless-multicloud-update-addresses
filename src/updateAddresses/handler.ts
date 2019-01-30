@@ -7,11 +7,8 @@ import { ServerResponse } from "http";
 import { Http2ServerResponse } from "http2";
 import { resolve } from "url";
 
-const BbPromise = require("bluebird");
-
 const googleMapsClient = googleMapSdk.createClient({
-  key: process.env.GOOGLE_KEY || "123",
-  Promise: BbPromise // Trying to use BbPromise, maybe it will not use native promises and execute code on main thread?
+  key: process.env.GOOGLE_KEY || "123"
 });
 
 /* eslint-disable no-param-reassign */
@@ -49,12 +46,10 @@ async function updateAddresses(context: Context) {
 
   context.log(
     "Using config",
-    Object.assign({}, config, { password: "***" }),
+    Object.assign({}, config, { password: "<redacted>" }),
     "to login to MS-SQL",
     sql
   );
-
-  sql.Promise = BbPromise;
 
   let result = sql
     .connect(config)

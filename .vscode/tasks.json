@@ -4,6 +4,10 @@
     {
       "label": "runFunctionsHost",
       "type": "shell",
+      "runOptions": {
+        "reevaluateOnRerun": true,
+        "runOn": "default"
+      },
       "command": "func host start",
       "isBackground": true,
       "problemMatcher": "$func-watch",

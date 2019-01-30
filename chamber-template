@@ -1,6 +1,7 @@
 #!/bin/bash
 # 
 # To run this project, copy this file, fill these values and uncomment chamber lines
+# More on configuring chamber cli project setup: https://bit.ly/2Bd049c
 
 # SQL server on Azure with sample SalesLT DB configured 
 
