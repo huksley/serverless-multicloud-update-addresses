@@ -23,7 +23,9 @@ appsettings.json
 local.settings.json
 
 node_modules
-src/*.js
-src/*.js.*
+*.js
+*.js.map
 .serverless
 #.vscode
+*-function.json
+

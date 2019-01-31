@@ -9,13 +9,13 @@
     "serverless"
   ],
   "scripts": {
-    "compile": "npx tsc && sed -i.bak -re 's/import \\* as (.*) from \"(.*)\"/const \\1 = require(\"\\2\")/g' src/handler.js",
-    "deploy": "npm run compile && date +'%nvar BUILD_TIME = \"%c\"' | tee -a src/handler.js && chamber exec azure/test1 -- npx serverless deploy",
-    "start": "npm run compile && RUN_CONSOLE=1 chamber exec azure/test1 -- node src/handler",
-    "chamber": "chamber exec --pristine azure/test1 -- sh -c set"
+    "compile": "npx tsc",
+    "deploy": "npm run compile && date +'%nvar BUILD_TIME = \"%c\"' | tee -a updateAddresses/handler.js && chamber exec azure/test1 -- npx serverless deploy",
+    "run:local1": "npm run compile && RUN_CONSOLE=1 chamber exec azure/test1 -- node updateAddresses/handler",
+    "chamber": "chamber exec --pristine azure/test1 -- sh -c set",
+    "start": "languageWorkers__node__arguments=\"--inspect=5858\" chamber exec azure/test1 -- func host start"
   },
   "devDependencies": {
-    "@types/bluebird": "^3.5.25",
     "@types/googlemaps": "^3.30.16",
     "@types/node": "^10.12.18",
     "serverless": "^1.36.1",

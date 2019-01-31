@@ -8,7 +8,8 @@ import { Http2ServerResponse } from "http2";
 import { resolve } from "url";
 
 const googleMapsClient = googleMapSdk.createClient({
-  key: process.env.GOOGLE_KEY || "123"
+  key: process.env.GOOGLE_KEY || "123",
+  Promise: Promise
 });
 
 /* eslint-disable no-param-reassign */
@@ -48,13 +49,13 @@ async function updateAddresses(context: Context) {
     "Using config",
     Object.assign({}, config, { password: "<redacted>" }),
     "to login to MS-SQL",
-    sql
+    process.env.DEBUG ? sql : ""
   );
 
   let result = sql
     .connect(config)
     .then(_ => {
-      context.log("After connect");
+      context.log("Connected to MS-SQL database", process.env.DEBUG ? _ : "");
       const request = new sql.Request();
       return request
         .query(

@@ -13,9 +13,14 @@ provider:
 
 package:
   exclude:
+    # Azure dotnet SDK bins
+    - 'bin'
+    # Azure dotnet SDK objs
+    - 'obj'
     - 'README.md'
     - 'tsconfig.json'
     - 'src/*.ts'
+    - 'updateAddresses/*.ts'
     - 'src/*.js.bak'
     - 'chamber-template'
     - '.gitignore'
@@ -26,11 +31,14 @@ plugins:
 
 functions:
   updateAddresses:
-    handler: src/handler.updateAddresses
+    handler: updateAddresses/handler.updateAddresses
     events:
       - http: true
         x-azure-settings:
           authLevel: anonymous
+          methods:
+            - get
+          route: updateAddresses
       - http: true
         x-azure-settings:
           direction: out
