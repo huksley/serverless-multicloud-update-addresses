@@ -1,16 +1,30 @@
-# Azure FaaS + container + SQL db
+# Serverless function to update address coordinates in sample database
 
-## Running
+This example NodeJS Javascript function is compatible with both Azure Functions and AWS Lambda.
+To deploy it I am using [Serverless Framework](https://serverless.com).
+Due to https://github.com/serverless/serverless/pull/5589 you need to copy `serverless-<cloud>.yml` config to serverless.yml before doing the deploy.
 
-npm install
-npm start
+## Features
+
+  * Uses MS-SQL NodeJS all-js driver
+  * Makes geocoding calls to Google Maps API
+  * Deploys to Azure Functions
+  * Deploys to AWS Lambda
+  * Limit on simultaneous requests to Google Maps API (10 concurrent requests)
 
 ## Configure local
 
-1. Get SQL server + sample DB
-2. Get Google key
-3. Save to AWS SSM Parameter store secrets using chamber-template
-4. Run or deploy (npm run deploy)
+1. Start SQL server + sample DB (https://docs.microsoft.com/en-us/azure/sql-database/sql-database-get-started-portal)
+2. Get Google key which can query Geocoding API
+3. Save to AWS SSM Parameter store secrets using chamber-template (see http://bit.ly/2Bd049c)
+4. Run (`npm run local`)
+5. Copy `serverless-<cloud>.yml` config to `serverless.yml`
+5. deploy (`npm run deploy`)
+
+## Running locally
+
+npm install
+npm run local
 
 ## Running typescript azure function locally
 
@@ -22,27 +36,29 @@ languageWorkers__node__arguments="--inspect=5858" func host start"
 tsc --watch
 ```
 
-And add to debugger launch restart: true
+If you are using **VS Code**, you can add to debugger launch configuration `restart: true` so it will restart after every recompilation.
 
 ## Links
 
-https://docs.microsoft.com/en-us/azure/azure-functions/set-runtime-version
-https://docs.microsoft.com/en-us/azure/azure-functions/functions-reference-node
-https://docs.microsoft.com/en-us/azure/azure-functions/functions-create-first-azure-function-azure-cli-linux
-https://update-addresses3.scm.azurewebsites.net/
-https://github.com/Azure/azure-functions-core-tools
+  * https://docs.microsoft.com/en-us/azure/azure-functions/set-runtime-version
+  * https://docs.microsoft.com/en-us/azure/azure-functions/functions-reference-node
+  * https://docs.microsoft.com/en-us/azure/azure-functions/functions-create-first-azure-function-azure-cli-linux
+  * https://update-addresses3.scm.azurewebsites.net/
+  * https://github.com/Azure/azure-functions-core-tools
 
-## container with Metabase
+## Container with Metabase
+
+You can run dashboard and analyze MS-SQL db in one click: 
 
 ```bash
 az container create --resource-group testg1 --name testnginx217219 --image metabase/metabase --cpu 2 --memory 4 --dns-name-label testnginx217219 --ports 3000
 ```
 
-result in http://testnginx217219.northeurope.azurecontainer.io:3000
+Will result in http://testnginx217219.northeurope.azurecontainer.io:3000 URL with [Metabase](https://metabase.com) dashboard running.
 
 ## FaaS deploy errors
 
-https://update-addresses.azurewebsites.net/api/updateAddresses
+These are various error I encountered debugging and launching Azure FaaS function. They are here for historical purposes only.
 
 ```
 The function runtime is unable to start. Microsoft.Azure.WebJobs.Script.WebHost: Host thresholds exceeded: [Threads, Processes]. For more information, see https://aka.ms/functions-thresholds.
@@ -63,10 +79,8 @@ Timeout value of 00:05:00 was exceeded by function: Functions.updateAddresses
 ```
 
 ```
-curl -v https://update-addresses.azurewebsites.net/api/updateAddresses
-```
-
 Function host is not running.
+```
 
 ## Serverless invoke error
 
