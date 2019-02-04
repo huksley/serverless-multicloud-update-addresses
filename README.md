@@ -23,14 +23,18 @@ Due to https://github.com/serverless/serverless/pull/5589 you need to copy `serv
 
 ## Running locally
 
-npm install
-npm run local
+  * `npm install`
+  * `npm run local`
 
 ## Running typescript azure function locally
+
+Run in terminal 1. This will start local function http://localhost:7071/api/updateAddresses
 
 ```bash
 languageWorkers__node__arguments="--inspect=5858" func host start"
 ```
+
+Run in terminal 2. This will compile TypeScript into Javascript and watch for file changes.
 
 ```bash
 tsc --watch
@@ -82,7 +86,7 @@ Timeout value of 00:05:00 was exceeded by function: Functions.updateAddresses
 Function host is not running.
 ```
 
-## Serverless invoke error
+### Serverless invoke error
 
 Invoking `serverless invoke -f updateAddresses` gives following error:
 
@@ -106,7 +110,7 @@ From previous event:
     at <anonymous>
  ```
 
-### After deploy
+### After deploy errors
 
 ```
 Error:
