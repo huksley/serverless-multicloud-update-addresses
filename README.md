@@ -4,6 +4,8 @@ This example NodeJS Javascript function is compatible with both Azure Functions 
 To deploy it I am using [Serverless Framework](https://serverless.com).
 Due to https://github.com/serverless/serverless/pull/5589 you need to copy `serverless-<cloud>.yml` config to serverless.yml before doing the deploy.
 
+![Architecture](flow.png)
+
 ## Regarding "We found potential security vulnerabilities in your dependencies."
 
 This message is generated using [GitHub Vulnerability alerts](https://help.github.com/articles/about-security-alerts-for-vulnerable-dependencies) feature. I am keeping it here, but in a nutshell it is a problem with [serverless-azure-functions](https://github.com/serverless/serverless-azure-functions), see https://github.com/serverless/serverless-azure-functions/issues/131.
