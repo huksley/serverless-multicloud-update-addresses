@@ -10,6 +10,8 @@ provider:
     SQL_SERVER: ${env:SQL_SERVER, 'localhost:1433'}
     SQL_DB: ${env:SQL_DB, 'testdb1'}
     SQL_ENCRYPT: true
+    IS_AWS: false
+    IS_AZURE: true
 
 package:
   exclude:

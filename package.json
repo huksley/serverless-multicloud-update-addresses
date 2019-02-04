@@ -11,7 +11,7 @@
   "scripts": {
     "compile": "npx tsc",
     "deploy": "npm run compile && date +'%nvar BUILD_TIME = \"%c\"' | tee -a updateAddresses/handler.js && chamber exec azure/test1 -- npx serverless deploy",
-    "run:local1": "npm run compile && RUN_CONSOLE=1 chamber exec azure/test1 -- node updateAddresses/handler",
+    "run:local": "npm run compile && RUN_CONSOLE=1 chamber exec azure/test1 -- node updateAddresses/handler",
     "chamber": "chamber exec --pristine azure/test1 -- sh -c set",
     "start": "languageWorkers__node__arguments=\"--inspect=5858\" chamber exec azure/test1 -- func host start"
   },
@@ -27,6 +27,7 @@
   },
   "dependencies": {
     "@google/maps": "^0.5.5",
-    "mssql": "^4.3.0"
+    "mssql": "^4.3.0",
+    "promise-limit": "^2.7.0"
   }
 }
