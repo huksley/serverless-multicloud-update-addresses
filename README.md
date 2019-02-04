@@ -6,7 +6,7 @@ Due to https://github.com/serverless/serverless/pull/5589 you need to copy `serv
 
 ## Regarding "We found potential security vulnerabilities in your dependencies."
 
-This message is generated using [GitHub Vulnerability alerts](https://help.github.com/articles/about-security-alerts-for-vulnerable-dependencies) feature. I am keeping it here, but in a nutshell it is a problem with [serverless-azure-functions](https://github.com/serverless/serverless-azure-functions)
+This message is generated using [GitHub Vulnerability alerts](https://help.github.com/articles/about-security-alerts-for-vulnerable-dependencies) feature. I am keeping it here, but in a nutshell it is a problem with [serverless-azure-functions](https://github.com/serverless/serverless-azure-functions), see https://github.com/serverless/serverless-azure-functions/issues/131.
 
 ```bash
 review	hoek		moderate	> 4.2.0 < 5.0.0 || >= 5.0.3	Prototype pollution				https://npmjs.com/advisories/566	serverless-azure-functions>request>hawk>boom>hoek
