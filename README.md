@@ -39,28 +39,27 @@ review	sync-exec	moderate	No patch available		Tmp files readable by other users	
   * `npm install`
   * `npm run local`
 
-## Running typescript azure function locally
+## Developing Typescript azure function locally
 
-Run in terminal 1. This will start local function http://localhost:7071/api/updateAddresses
+During development, run this in terminal 1. This will start local function at http://localhost:7071/api/updateAddresses
 
 ```bash
 languageWorkers__node__arguments="--inspect=5858" func host start"
 ```
 
-Run in terminal 2. This will compile TypeScript into Javascript and watch for file changes.
+Run this in terminal 2. This will compile TypeScript into Javascript and watch for file changes.
 
 ```bash
 tsc --watch
 ```
 
-If you are using **VS Code**, you can add to debugger launch configuration `restart: true` so it will restart after every recompilation.
+If you are using **VS Code**, you can add to debugger launch configuration `restart: true` so it will restart after every recompilation/node restart.
 
 ## Links
 
   * https://docs.microsoft.com/en-us/azure/azure-functions/set-runtime-version
   * https://docs.microsoft.com/en-us/azure/azure-functions/functions-reference-node
   * https://docs.microsoft.com/en-us/azure/azure-functions/functions-create-first-azure-function-azure-cli-linux
-  * https://update-addresses3.scm.azurewebsites.net/
   * https://github.com/Azure/azure-functions-core-tools
 
 ## Container with Metabase
