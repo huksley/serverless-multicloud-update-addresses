@@ -1,0 +1,45 @@
+service: ${env:SERVICE_NAME, 'update-addresses'}
+
+provider:
+  name: azure
+  location: North Europe
+  environment:
+    GOOGLE_KEY: ${env:GOOGLE_KEY, '123'}
+    SQL_USER: ${env:SQL_USER, 'test'}
+    SQL_PASSWORD: ${env:SQL_PASSWORD, '123'}
+    SQL_SERVER: ${env:SQL_SERVER, 'localhost:1433'}
+    SQL_DB: ${env:SQL_DB, 'testdb1'}
+    SQL_ENCRYPT: true
+
+package:
+  exclude:
+    # Azure dotnet SDK bins
+    - 'bin'
+    # Azure dotnet SDK objs
+    - 'obj'
+    - 'README.md'
+    - 'tsconfig.json'
+    - 'src/*.ts'
+    - 'updateAddresses/*.ts'
+    - 'src/*.js.bak'
+    - 'chamber-template'
+    - '.gitignore'
+
+plugins:
+  - serverless-azure-functions
+  - serverless-plugin-include-dependencies
+
+functions:
+  updateAddresses:
+    handler: updateAddresses/handler.updateAddresses
+    events:
+      - http: true
+        x-azure-settings:
+          authLevel: anonymous
+          methods:
+            - get
+          route: updateAddresses
+      - http: true
+        x-azure-settings:
+          direction: out
+          name: $return
