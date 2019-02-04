@@ -4,6 +4,19 @@ This example NodeJS Javascript function is compatible with both Azure Functions 
 To deploy it I am using [Serverless Framework](https://serverless.com).
 Due to https://github.com/serverless/serverless/pull/5589 you need to copy `serverless-<cloud>.yml` config to serverless.yml before doing the deploy.
 
+## Regarding "We found potential security vulnerabilities in your dependencies."
+
+This message is generated using [GitHub Vulnerability alerts](https://help.github.com/articles/about-security-alerts-for-vulnerable-dependencies) feature. I am keeping it here, but in a nutshell it is a problem with [serverless-azure-functions](https://github.com/serverless/serverless-azure-functions)
+
+```bash
+review	hoek		moderate	> 4.2.0 < 5.0.0 || >= 5.0.3	Prototype pollution				https://npmjs.com/advisories/566	serverless-azure-functions>request>hawk>boom>hoek
+review	hoek		moderate	> 4.2.0 < 5.0.0 || >= 5.0.3	Prototype pollution				https://npmjs.com/advisories/566	serverless-azure-functions>request>hawk>cryptiles>boom>hoek
+review	hoek		moderate	> 4.2.0 < 5.0.0 || >= 5.0.3	Prototype pollution				https://npmjs.com/advisories/566	serverless-azure-functions>request>hawk>hoek
+review	hoek		moderate	> 4.2.0 < 5.0.0 || >= 5.0.3	Prototype pollution				https://npmjs.com/advisories/566	serverless-azure-functions>request>hawk>sntp>hoek
+review	static-eval	moderate	>=2.0.0				Sandbox Breakout / Arbitrary Code Execution	https://npmjs.com/advisories/548	serverless-azure-functions>jsonpath>static-eval
+review	sync-exec	moderate	No patch available		Tmp files readable by other users		https://npmjs.com/advisories/310	serverless-azure-functions>az-login>copy-paste>sync-exec
+```
+
 ## Features
 
   * Uses MS-SQL NodeJS all-js driver
@@ -88,7 +101,7 @@ Function host is not running.
 
 ### Serverless invoke error
 
-Invoking `serverless invoke -f updateAddresses` gives following error:
+Invoking `serverless invoke -f updateAddresses` gives following error. Probably corellates with this issue https://github.com/serverless/serverless-azure-functions/issues/128.
 
 ```
 Error: [object Object]
