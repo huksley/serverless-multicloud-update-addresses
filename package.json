@@ -27,7 +27,7 @@
   },
   "dependencies": {
     "@google/maps": "^0.5.5",
-    "mssql": "^4.3.0",
+    "mssql": "^5.1.0",
     "promise-limit": "^2.7.0"
   }
 }
