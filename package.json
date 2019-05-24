@@ -22,7 +22,7 @@
     "serverless": "^1.36.1",
     "serverless-azure-functions": "^0.7.0",
     "serverless-plugin-include-dependencies": "^3.2.1",
-    "source-map-support": "^0.5.10",
+    "source-map-support": "^0.5.12",
     "typescript": "^3.2.4"
   },
   "dependencies": {
