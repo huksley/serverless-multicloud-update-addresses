@@ -18,7 +18,7 @@
   "devDependencies": {
     "@types/googlemaps": "^3.30.16",
     "@types/node": "^10.12.18",
-    "mock-fs": "^4.7.0",
+    "mock-fs": "^4.10.1",
     "serverless": "^1.36.1",
     "serverless-azure-functions": "^0.7.0",
     "serverless-plugin-include-dependencies": "^3.2.1",
