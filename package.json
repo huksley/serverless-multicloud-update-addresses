@@ -16,7 +16,7 @@
     "start": "languageWorkers__node__arguments=\"--inspect=5858\" chamber exec azure/test1 -- func host start"
   },
   "devDependencies": {
-    "@types/googlemaps": "^3.30.16",
+    "@types/googlemaps": "^3.37.0",
     "@types/node": "^10.12.18",
     "mock-fs": "^4.7.0",
     "serverless": "^1.36.1",
